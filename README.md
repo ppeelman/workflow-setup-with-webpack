@@ -48,9 +48,11 @@ Documentation: https://docs.npmjs.com/creating-a-package-json-file
 `npm install --save-dev webpack webpack-dev-server`
 
 ## 4. Create a folder structure
-`mkdir src`  
-`cd src`  
-`echo '' > index.html`    
+~~~~
+mkdir src
+cd src
+echo '' > index.html
+~~~~
 Create a new folder (src) and a new file (index.html) in that folder
 
 `code index.html`  
