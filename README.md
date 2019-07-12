@@ -70,6 +70,7 @@ mkdir components
 mkdir containers
 echo '' > index.js
 echo '' > index.css
+echo '' > app.js
 ~~~~  
 Create 3 more folders (assets, components, containers) and 2 more files (index.js, index.css)
 
