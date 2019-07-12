@@ -8,3 +8,15 @@ A custom workflow setup (NPM, Webpack (different loaders), Babel, Linters...) fo
 * Support image imports
 * Optimize code
 * Linting
+
+# Set up version control with Git
+~~~~
+git init
+git add .
+git commit -m 'First commit of the project'
+git remote add orgin https://github.com/ppeelman/workflow-setup-with-webpack.git
+git push --set-upstream origin master
+~~~~
+
+# Initialize NPM
+`npm init`
