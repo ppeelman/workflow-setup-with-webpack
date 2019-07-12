@@ -60,3 +60,18 @@ Open 'index.html' in Visual Studio Code
 
 `html:5`  
 Use the Emmet abbreviation html:5 in Visual studio code to get a boilerplate HTML5 setup
+
+`<div id="root"></div>` or `#root` (Emmet abbreviation)  
+Within the body section, create a div with ID 'root' where are React application will be mounted to
+
+~~~~
+mkdir assets
+mkdir components
+mkdir containers
+echo '' > index.js
+echo '' > index.css
+~~~~  
+Create 3 more folders (assets, components, containers) and 2 more files (index.js, index.css)
+
+`import './index.css'`
+Within the index.js file, import the index.css file (containing some global styles for the project)
