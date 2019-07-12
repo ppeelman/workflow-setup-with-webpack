@@ -17,7 +17,7 @@ Creates an empty Git repository
 Add all untracked files in the directory to the staging area
 
 `git commit -m 'First commit of the project'`  
-Create a first commit (snapshot of the project)
+Create a first commit (snapshot of the project) using the files in the staging area
 
 `git remote add orgin https://github.com/ppeelman/workflow-setup-with-webpack.git`  
 Add a remote (remote Git repository):
