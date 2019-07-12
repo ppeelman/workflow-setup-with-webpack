@@ -72,7 +72,12 @@ echo '' > index.js
 echo '' > index.css
 echo '' > app.js
 ~~~~  
-Create 3 more folders (assets, components, containers) and 2 more files (index.js, index.css)
+Create 3 more folders (assets, components, containers) and 3 more files (index.js, index.css, app.js)
 
 `import './index.css'`
 Within the index.js file, import the index.css file (containing some global styles for the project)
+
+## 5. Creating a basic React project
+See source code
+
+33 6. ...
