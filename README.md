@@ -10,21 +10,21 @@ A custom workflow setup (NPM, Webpack (different loaders), Babel, Linters...) fo
 * Linting
 
 ## 1. Set up version control with Git
-`git init`
+`git init`  
 Creates an empty Git repository
 
-`git add .`
+`git add .`  
 Add all untracked files in the directory to the staging area
 
-`git commit -m 'First commit of the project'`
+`git commit -m 'First commit of the project'`  
 Create a first commit (snapshot of the project)
 
-`git remote add orgin https://github.com/ppeelman/workflow-setup-with-webpack.git`
+`git remote add orgin https://github.com/ppeelman/workflow-setup-with-webpack.git`  
 Add a remote (remote Git repository):
 * name: origin
 * URL: https://github.com/ppeelman/workflow-setup-with-webpack.git
 
-`git push --set-upstream origin master`
+`git push --set-upstream origin master`  
 Push the current branch (master) and set the remote (name: origin) as its upstream
 
 
