@@ -1,0 +1,17 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "browsers": ["> 1%", "last 2 versions"]
+          // Syntax to specify browsers: https://github.com/browserslist/browserslist
+          //" > 1%": more than 1% of global market share
+          // --- OR ---
+          // "last 2 versions": the last 2 versions for each browser
+        }
+      }
+    ],
+    "@babel/preset-react"
+  ]
+}

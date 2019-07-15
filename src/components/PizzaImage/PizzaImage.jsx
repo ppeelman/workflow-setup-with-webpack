@@ -8,3 +8,5 @@ const pizzaImage = props => {
     <img src={PizzaImage} className={classes.PizzaImg} />
   </div>;
 };
+
+export default pizzaImage;

@@ -22,6 +22,9 @@ module.exports = {
     filename: "bundle.js",
     // it is a convention to call this bundle.js, as it is bundled JavaScript code
 
+    chunkFilename: "[id].js",
+    // This option determines the name of non-entry chunk files. By default [id].js is used
+
     publicPath: ""
     // the url to the output directory resolved relative to the HTML page
   },
@@ -47,6 +50,50 @@ module.exports = {
         // - Use RegExp only in test and for filename matching
         // - Use arrays of absolute paths in include and exclude
         // - Try to avoid exclude and prefer include
+      },
+      {
+        test: /\.css$/,
+        // Regular expression: '$' matches end of input
+
+        exclude: /node_modules/,
+        use: [
+          { loader: "style-loader" },
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                localIdentName: "[name]__[local]__[hash:base64:5]"
+                // How should the classes be named?
+                // NAME: name of the class we defined
+                // LOCAL: module name (component name)
+                // HASH: hash with base 64
+              },
+              // Enable CSS Modules !
+
+              importLoaders: 1
+              // Because we use another loader (postcss-loader) before 'css-loader', we need to let css-loader know by setting 'importLoaders' to 1
+            }
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              ident: "postcss",
+              plugins: [require("autoprefixer")({})]
+              // Documentation: https://webpack.js.org/loaders/postcss-loader/#autoprefixing
+            }
+          }
+        ]
+        // Loaders are applied from right to left (or bottom to top), so we we should write the loader that has to be applied first LAST
+        // 1. Use postcss-loader to autoprefix the CSS
+        // 2. use css-loader to understand CSS imports
+        // 3. use style-loader to inject CSS code into the <style> tag in HTML file
+      },
+      {
+        test: /\.(png|jpe?g|gif)/,
+        loader: "url-loader?limit=8000&name=images/[name].[ext]"
+        // This loader is using query parameters to configer the loader
+        // Use the url-loader if the image size is under 8000 bytes,
+        // else use the file-loader which copies the image to a folder (images/[name].[ext]) and provides an URL to use as a reference
       }
     ]
   }
