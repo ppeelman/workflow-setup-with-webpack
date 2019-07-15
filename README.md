@@ -78,6 +78,85 @@ Create 3 more folders (assets, components, containers) and 3 more files (index.j
 Within the index.js file, import the index.css file (containing some global styles for the project)
 
 ## 5. Creating a basic React project
-See source code
+A simple project using react-router, CSS Modules, images etc.
+(see files in this project)
 
-33 6. ...
+## 6. Installing React dependencies
+`npm install --save react react-dom react-router-dom`   
+* React
+* React-DOM
+* React-router-dom   
+
+## 7. Setting up the basic webpack config
+Create a configuration file for webpack:
+`webpack.config.js`
+
+Documentation: https://webpack.js.org/concepts/configuration/
+All configuration options: https://webpack.js.org/configuration/
+
+Contents of the file:
+
+~~~~
+const path = require("path");
+// Because Node.js is a standard Node.js CommonJS module,
+// we can use the CommonJS module specification (eg. require)
+// 'path' is a core Node.js module
+
+module.exports = {
+  devtool: "cheap-module-eval-source-map", // enum
+  // controls if and how source maps are generated
+  // Documentation: https://webpack.js.org/configuration/devtool/
+  // What are source maps? https://blog.teamtreehouse.com/introduction-source-maps
+
+  entry: "./src/index.js",
+  // An entry point indicates which module webpack should use to begin building out its internal dependency graph.
+  // Webpack will figure out which other modules and libraries that entry point depends on (directly and indirectly).
+
+  output: {
+    // The output property tells webpack where to emit the bundles it creates and how to name these files.
+
+    path: path.resolve(__dirname, "dist"),
+    // // must be an ABSOLUTE path, so we use __dirname: The directory name of the current module.
+
+    filename: "bundle.js",
+    // it is a convention to call this bundle.js, as it is bundled JavaScript code
+
+    publicPath: ""
+    // the url to the output directory resolved relative to the HTML page
+  },
+  resolve: {
+    // These options change how modules are resolved.
+
+    extensions: [".js", ".jsx"]
+    // If no extension is defined, webpack will look for a file with these extensions (.js, .jsx)
+  },
+  module: {
+    // These options determine how the different types of modules within a project will be treated
+    // => everything that can be imported, eg. images, CSS, Sass, JavaScript
+    rules: [
+      {
+        test: /\.js/,
+        // A JavaScript regular expression to match a filename (incl. extension)
+        // you use '\' to escape the '.' character because we are in a regular expression
+
+        loader: "babel-loader",
+        exclude: /node_modules/
+
+        // Best practices:
+        // - Use RegExp only in test and for filename matching
+        // - Use arrays of absolute paths in include and exclude
+        // - Try to avoid exclude and prefer include
+      }
+    ]
+  }
+};
+
+~~~~
+
+
+## 8. Install and configure Babel
+`npm install --save-dev babel-loader @babel/core @babel/preset-react @babel/preset-env`
+
+Setting up a NPM 'start' script:
+
+
