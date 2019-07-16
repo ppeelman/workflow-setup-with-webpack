@@ -100,7 +100,7 @@ Open 'index.html' in Visual Studio Code
 Use the Emmet abbreviation html:5 in Visual studio code to get a boilerplate HTML5 setup
 
 `<div id="root"></div>` or `#root` (Emmet abbreviation)  
-Within the body section, create a div with ID 'root' where are React application will be mounted to
+Within the body section, create a div with ID 'root' where the React application will be mounted to
 
 ```
 mkdir assets
@@ -127,7 +127,7 @@ A simple project using react-router, CSS Modules, images etc.
 
 - **React**
 - **React-DOM**
-- **React-router-dom**a smart preset that allows you to use the latest JavaScript without needing to micromanage which syntax transforms (and optionally, browser polyfills) are needed by your target environment(s)
+- **React-router-dom**: a smart preset that allows you to use the latest JavaScript without needing to micromanage which syntax transforms (and optionally, browser polyfills) are needed by your target environment(s)
 
 ## 7. Install and configure Babel
 
@@ -137,7 +137,7 @@ Babel is a JavaScript compiler and is mainly used to compile ECMAScript 2015+ (E
 
 - **babel-loader**: loader for Webpack
 - **@babel/core**: core module for Babel to work
-- **@babel/preset-react**: React presets, iincl. handling JSX
+- **@babel/preset-react**: React presets, incl. handling JSX
 - **@babel/preset-env**: a smart preset that allows you to use the latest JavaScript without needing to micromanage which syntax transforms (and optionally, browser polyfills) are needed by your target environment(s).
 
 `echo ''>.babelrc`
@@ -162,17 +162,16 @@ In the .babelrc file:
     "@babel/preset-react"
   ]
 }
+
+**Be aware that your file(s) are UTF-8 encoded!** (I had this issue with my IDE for some reason...)
 ```
 
 ## 8. Adding CSS file support
 
-`npm install --save-dev css-loader style-loader`
+`npm install --save-dev css-loader style-loader postcss-loader`
 
 - **css-loader**: the css-loader interprets @import and url() like import/require() and will resolve them.
 - **style-loader**: adds CSS to the DOM by injecting a <style> tag
-
-`npm install --save-dev postcss-loader`
-
 - **postcss-loader**: loader for webpack to process CSS with PostCSS (to use eg. vendor prefixing)
 
 ## 9. Adding image support
@@ -182,12 +181,12 @@ In the .babelrc file:
 - **url-loader**: transforms files into base64 URIs.
 - **file-loader**: the file-loader resolves import/require() on a file into a url and emits the file into the output directory.
 
-## 10. Setting up the basic webpack config
+## 10. Setting up the webpack config
 
 Create a configuration file for webpack:
 `webpack.config.js`
 
-Documentation: https://webpack.js.org/concepts/configuration/
+Documentation: https://webpack.js.org/concepts/configuration/  
 All configuration options: https://webpack.js.org/configuration/
 
 Contents of the file:
@@ -198,7 +197,12 @@ const path = require("path");
 // we can use the CommonJS module specification (eg. require)
 // 'path' is a core Node.js module
 
+const HTMLWebpackPlugin = require("html-webpack-plugin");
+
 module.exports = {
+  mode: "development",
+  // Chosen mode tells webpack to use its built-in optimizations accordingly.
+
   devtool: "cheap-module-eval-source-map", // enum
   // controls if and how source maps are generated
   // Documentation: https://webpack.js.org/configuration/devtool/
@@ -291,8 +295,16 @@ module.exports = {
         // else use the file-loader which copies the image to a folder (images/[name].[ext]) and provides an URL to use as a reference
       }
     ]
-  }
+  },
+  plugins: [
+    new HTMLWebpackPlugin({
+      template: __dirname + "/src/index.html",
+      filename: "index.html",
+      inject: "body"
+    })
+  ]
 };
+
 ```
 
 ## 11. Add a NPM start script
@@ -302,3 +314,57 @@ module.exports = {
     "start": "webpack-dev-server"
   },
 ```
+
+Compiles the project and initiates a dev webserver
+
+## 12. Injecting the Script into the index.html file
+
+`npm install -D html-webpack-plugin`
+
+Making it possible to inject our bundled script into the HTML file
+
+In the webpack.config.js file:
+
+```
+const HTMLWebpackPlugin = require("html-webpack-plugin");
+
+...
+
+plugins: [
+    new HTMLWebpackPlugin({
+      template: __dirname + "/src/index.html",
+      filename: "index.html",
+      inject: "body"
+    })
+  ]
+}
+```
+
+## 13. Adding a production webpack configuration
+
+###Copy the original 'webpack.config.js' file and rename the new file 'webpack.prod.config.js'
+
+###Add a new plugin:
+
+`npm install uglifyjs-webpack-plugin --save-dev`
+
+```
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+
+...
+
+  optimization: {
+    minimizer: [new UglifyJsPlugin()]
+  }
+};
+```
+
+Documentation: https://webpack.js.org/plugins/uglifyjs-webpack-plugin/
+
+###Modify the NPM script 'build':
+
+`npm install -D rimraf`
+Install this CLI tool to delete entire folders
+
+`"build": "rimraf dist && webpack --config webpack.prod.config.js --progress --profile --color"`
+Delete first the dist folder and perform then a webpack compilation using the PROD config file

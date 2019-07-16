@@ -5,11 +5,13 @@ const path = require("path");
 
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+
 module.exports = {
-  mode: "development",
+  mode: "production",
   // Chosen mode tells webpack to use its built-in optimizations accordingly.
 
-  devtool: "cheap-module-eval-source-map", // enum
+  devtool: "cheap-module-source-map", // enum
   // controls if and how source maps are generated
   // Documentation: https://webpack.js.org/configuration/devtool/
   // What are source maps? https://blog.teamtreehouse.com/introduction-source-maps
@@ -108,5 +110,8 @@ module.exports = {
       filename: "index.html",
       inject: "body"
     })
-  ]
+  ],
+  optimization: {
+    minimizer: [new UglifyJsPlugin()]
+  }
 };

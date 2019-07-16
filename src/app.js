@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import { Link, Route } from "react-router-dom";
 
 import Users from "./containers/Users";
@@ -9,18 +9,18 @@ class App extends Component {
     return (
       <div>
         <div>
-          <Link to="/">Users</Link> |<Link to="/pizza">Pizza</Link>
+          <Link to="/">Users</Link> | <Link to="/pizza">Pizza</Link>
         </div>
         <div>
           <Route path="/" exact component={Users} />
           <Route
-            path="pizza"
+            path="/pizza"
             exact
-            render={() => {
+            render={routeProps => (
               <Suspense fallback={<div>Loading...</div>}>
                 <Pizza />
-              </Suspense>;
-            }}
+              </Suspense>
+            )}
           />
         </div>
       </div>
