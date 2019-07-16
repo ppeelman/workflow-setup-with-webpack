@@ -127,7 +127,7 @@ A simple project using react-router, CSS Modules, images etc.
 
 - **React**
 - **React-DOM**
-- **React-router-dom**: a smart preset that allows you to use the latest JavaScript without needing to micromanage which syntax transforms (and optionally, browser polyfills) are needed by your target environment(s)
+- **React-router-dom**
 
 ## 7. Install and configure Babel
 
